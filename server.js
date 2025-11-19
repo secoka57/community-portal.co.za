@@ -11,20 +11,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "config", "GLOBAL CSS UPGRADE (Professional UI)", "public")));
 
 // View engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "config"));
 
 // Database connection
 require("./config/db")();
 
 // Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/user", require("./routes/userRoutes"));
-app.use("/api/admin", require("./routes/adminRoutes"));
-app.use("/api/opportunities", require("./routes/opportunityRoutes"));
-app.use("/api/reports", require("./routes/reportRoutes"));
+app.use("/api/auth", require("./config/authRoutes"));
+app.use("/api/user", require("./config/userRoutes"));
+app.use("/api/admin", require("./config/adminRoutes"));
+// app.use("/api/opportunities", require("./config/opportunityRoutes"));
+// app.use("/api/reports", require("./config/reportRoutes"));
 
 // Home page
 app.get("/", (req, res) => {
